@@ -32,8 +32,7 @@ Para poder  seguir el curso, es necesario tener conocimientos básicos de HTML, 
    ```
 2. Navega al directorio del proyecto:
   ```sh
-   cd blogCafeAstro
-   cd blogCafe
+   cd codigoClub-Community-Curso-Rapido-Astro/
   ```
 3. Instala las dependencias:
    ```sh
