@@ -15,6 +15,7 @@ Para poder  seguir el curso, es necesario tener conocimientos básicos de HTML, 
 - **src/**: Contiene el código fuente del proyecto.
   - **components/**: Componentes reutilizables de Astro.
   - **pages/**: Páginas del sitio web.
+    - **posts/**: Contiene los posts del blog.
   - **styles/**: Archivos CSS para estilos globales y específicos.
   - **scripts/**: Archivos JavaScript para interactividad.
 - **public/**: Archivos públicos accesibles desde el navegador.
