@@ -1,48 +1,55 @@
-# Astro Starter Kit: Minimal
+# Curso Rápido e Introductorio a Astro 🚀
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Este proyecto es un curso rápido e introductorio a Astro, un metaframework moderno para crear sitios web orientados al contenido. A lo largo del curso, haremos un blog sobre café utilizando Astro y sus características.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+Para poder  seguir el curso, es necesario tener conocimientos básicos de HTML, CSS y JavaScript. Se usará un poco de React, pero no se requiere experiencia previa en React. También se usarán archivos Markdown para escribir el contenido de los posts.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Enlaces a páginas relevantes 🛰️
 
-## 🚀 Project Structure
+- [Tutorial de Astro](https://docs.astro.build/es/tutorial/0-introduction/) - en español.
+- [Markdown](https://www.markdownguide.org/getting-started/) - en inglés.
+- [Ejemplo de sitio ya terminado con más funcionalidades](https://astro0.netlify.app/) En este ejemplo uso content-collections, que es una de las características más interesantes de Astro, TypeScript, componentes React **y** Preact, componentes Astro que utilizan componentes de terceros, hooks personalizados y manejo del estado global con Zustand.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura del Proyecto 🪐
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **src/**: Contiene el código fuente del proyecto.
+  - **components/**: Componentes reutilizables de Astro.
+  - **pages/**: Páginas del sitio web.
+  - **styles/**: Archivos CSS para estilos globales y específicos.
+  - **scripts/**: Archivos JavaScript para interactividad.
+- **public/**: Archivos públicos accesibles desde el navegador.
+  - **imagenes/**: Imágenes utilizadas en el sitio.
+- **.vscode/**: Configuración de Visual Studio Code.
+- **astro.config.mjs**: Configuración de Astro.
+- **tsconfig.json**: Configuración de TypeScript.
+- **package.json**: Dependencias y scripts del proyecto.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Instalación 🌟
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Clona el repositorio:
+   ```sh
+   git clone https://github.com/Ariel-GonzAguer/codigoClub-Community-Curso-Rapido-Astro
+   ```
+2. Navega al directorio del proyecto:
+  ```sh
+   cd blogCafeAstro
+   cd blogCafe
+  ```
+3. Instala las dependencias:
+   ```sh
+   npm install
+   ```
+4. Inicia el servidor de desarrollo:
+   ```sh
+   npm run dev
+   ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+El sitio estará disponible en http://localhost:4321. En caso de no estar disponible, puede tomar el puerto 4322.
 
-## 🧞 Commands
+5. Para generar el sitio para producción:
+   ```sh
+   npm run build
+   ```
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-# codigoClub-Community-Curso-Rapido-Astro
+## Créditos 👨🏼‍🚀
+Inspirado en el tutorial oficial de Astro.
