@@ -1,0 +1,1528 @@
+inspirado en el tutorial oficial de Astro https://docs.astro.build/en/tutorial/0-introduction/
+
+Sugiero hacer el tutorial oficial completo después de llevar este taller, pues es más completo aunque se mantiene en un nivel introductorio. Después o mientras se hace el tutorial oficial, sugiero leer la documentación, la cuál es hermosa.
+
+PARTE 1
+- 1.1 INICIALIZACIÓN 
+para crear un proyecto astro ejecutar en la terminal: npm create astro@latest -- --template minimal
+
+después seguir las instrucciones que se muestran en la terminal
+cuando pregunten donde crear el proyecto, escribir el nombre de la carpeta donde se creará. IMPORTANTE: Un proyecto de Astro solo se puede crear en una carpeta nueva.
+
+Para trabajar con Astro, es mejor tener instalada la extensión oficial de Astro en VS Code.
+
+Si nos aparece algún error de que no se instalaron las dependencias, después de ejecutar el comando: cd "carpeta creada"
+
+Ejecutamos: npm i
+
+Ahora ejecutamos en la terminal el comando: npm run dev
+Esto nos permite ver en local nuestro proyecto.
+Lo único que se ve es la palabra Astro.
+
+En el archivo index.astro podemos ver que hay una estructura muy parecida a un archivo HTML, con sus etiquetas de head, body y demás, pero también vemos una sección en la parte superior compuesta de:
+---
+
+---
+Más adelanta veremos qué hace esa sección, pero se llama frontmatter, y es una característica particular de los archivos .astro.
+
+En este momento el archivo index.astro se comporta como HTML puro, podemos agregar cualquier etiqueta HTML como listas, secciones, divs, etc.
+
+Para este curso rápido e introductorio, haremos un blog sobre café.
+
+Antes de seguir, dentro de la carpeta public/ creamos una carpeta llamada imágenes y agregamos estas fotos (copiar y pegar fotos a la carpeta) que usaremos después.
+
+PARTE 2
+-2.1 PRIMERAS PÁGINAS .astro
+los archivos .astro, en la carpeta pages, son los encargados de mostrar el contenido de nuestro sitio, es decir, son las páginas que se verán en la web. El arhivo index.astro, en la carpeta pages, siempre será el "Home" del sitio web.
+
+Todas las páginas que queremos mostrar deben estar dentro de la carpeta *pages*. VER LA IMAGEN DE ESTRUCTURA DEL PROYECTO.
+
+Vamos a crear una nueva página acerca.astro, donde pondremos info sobre el blog de café.
+Copiamos todo lo que hay en index.astro a este nuevo archivo y cambiamos el contenido del body por esto:
+****
+<h1>Acerca de Café & Orígenes</h1>
+    <p>
+      "Café & Orígenes" es un blog dedicado a explorar el fascinante mundo del
+      café, desde su cultivo hasta la taza. Aquí encontrarás artículos sobre
+      métodos de preparación, variedades de granos, técnicas de tueste y las
+      mejores formas de disfrutar cada sorbo. Además, nos sumergimos en la
+      historia y cultura detrás del café, con reportajes sobre productores
+      locales, catas y nuevas tendencias en el mundo cafetero. Ya seas un
+      barista experimentado o un aficionado en busca del espresso perfecto, este
+      espacio es para ti.
+    </p>
+****
+
+-2.2 NAVEGACIÓN / ENRUTADO
+Ahora añadimos links de navegación entre páginas. Usamos la etiqueta <a></a> de HTML. Escribimos antes del h1 en ambos archivos (index y acerca).astro:
+****
+    <a href="/">Home</a>
+    <a href="/acerca">acerca</a>
+****
+
+Verificamos que funcionan los enlaces y seguimos.
+Vamos a crear una tercera página llamada cafes.astro.
+Compiamos todo lo de index.astro. También creamos un enlace más a esta página, en los otros archivos (index y acerca).astro, quedando así:
+****
+    <a href="/">Home</a>
+    <a href="/acerca">acerca</a>
+    <a href="/cafes">Cafés</a>
+****
+
+Cambiamos el contenido del body en cafes.astro con esto:
+****
+    <h1>Cafés del mundo</h1>
+    <p>En este lugar puedes conocer sobre los cafés más deliciosos del mundo</p>
+****
+
+-2.3 MARKDOWN
+Vamos a crear posts con Markdown (lenguaje de marcado). Primero creamos una nueva carpeta en src/pages/ llamada posts.
+Después, dentro de esta carpeta, creamos un archivo llamado post-1.md.
+Escribimos en el navegador http://localhost:4321/posts/post-1 y veremos que aparece la página en blanco. Si cambiamos a http://localhost:4321/posts/post-2 vemos que nos indican que no se encontró la página. Esta es una manera directa y sencilla de ver si una página existe o solo está vacía.
+
+Dentro de post-1.md escribimos:
+****
+---
+title: "Café Tarrazú – La Joya de Costa Rica"
+pubDate: 2025-02-15
+description: "Post sobre Café Tarrazú de Costa Rica"
+author: "Astro Learner"
+image:
+  url: 'public/imagenes/cafe1.jpg'
+  alt: "Una taza de café negro, originario de Costa Rica"
+tags: ["café", "costa rica", "astro"]
+---
+
+# Café Tarrazú
+
+Publicado el 15 de febrero de 2025.
+
+## La Joya de Costa Rica
+
+Un café de altura cultivado en las montañas de Tarrazú, Costa Rica, conocido por su acidez brillante y notas cítricas. Su perfil de sabor combina matices de chocolate oscuro y caramelo, con un cuerpo balanceado y un final limpio. Perfecto para quienes buscan una taza compleja y aromática. 
+
+Ideal en métodos de filtrado como:
+- V60.
+- Chemex.
+
+****
+
+En este momento nos enfocamos en que el contenido se vea. Más adelante nos encargamos de darle una mejor presentación.
+
+Algo muy importante a notar en esta parte es que, si nos fijamos en las Dev Tools del navegador, veremos que la página tiene elementos HTML, aunque hayamos creado el archivo en markdown. Esto es parte de la magia de Astro.
+
+La información que se encuentra en la parte superior del archivo, dentro de los límites del código, se denomina frontmatter. Estos datos (que incluyen etiquetas y una imagen de la publicación) son información sobre la publicación que Astro puede usar. No aparece en la página automáticamente, pero se podrá acceder a ellos más adelante.
+
+Ahora vamos a crear un elemento anchor para poder acceder a este post desde la página de cafés (cafes.astro). Añadimos esta línea debajo del elemento p:
+****
+    <a href="/posts/post-1">Café Tarrazú</a>
+****
+
+Ahora creamos dos posts más:
+post-2.md
+****
+---
+title: "Café Yirgacheffe – La Esencia de Etiopía"
+pubDate: 2025-02-15
+description: "Post sobre Café Yirgacheffe de Etiopía"
+author: "Astro Learner"
+image:
+  url: 'public/imagenes/cafe2.jpg'
+  alt: "Una taza de café, originario de Etiopía"
+tags: ["café", "etiopía", "astro"]
+---
+
+# Café Yirgacheffe
+
+Publicado el 15 de febrero de 2025.
+
+## La Esencia de Etiopía
+
+Originario de la cuna del café, Etiopía, el Yirgacheffe es un café afrutado y floral, con notas de jazmín, frutos rojos y miel. Su acidez vibrante y cuerpo ligero lo hacen una opción excepcional para quienes disfrutan cafés con perfiles exóticos y dulces. 
+
+Destaca en preparaciones de filtrado como:
+- Aeropress.
+- Kalita Wave.
+
+****
+
+post-3.md
+****
+---
+title: "Café Geisha – Elegancia y Complejidad"
+pubDate: 2025-02-15
+description: "Post sobre Café Geisha de Panamá"
+author: "Astro Learner"
+image:
+  url: 'public/imagenes/cafe3.jpg'
+  alt: "Una taza de café, originario de Panamá"
+tags: ["café", "panamá", "astro"]
+---
+
+# Café Geisha
+
+Publicado el 15 de febrero de 2025.
+
+## Elegancia y Complejidad
+
+Considerado uno de los cafés más exclusivos del mundo, el Geisha se cultiva en las montañas de Panamá y otras regiones de América Latina. Su perfil es floral y afrutado, con notas de jazmín, bergamota y miel, acompañado de una acidez vibrante y un cuerpo sedoso. Su complejidad y delicadeza lo hacen ideal para métodos de filtrado como *V60* o **Chemex**, donde se pueden apreciar todos sus matices.
+
+****
+
+Ahora añadimos nuevos enlaces a estos posts en la página de cafés (cafes.astro):
+****
+<a href="/posts/post-1">Café Tarrazú</a>
+<a href="/posts/post-2">Café Yirgacheffe</a>
+<a href="/posts/post-3">Café Geisha</a>
+****
+
+Verificamos que todos estén funcionando correctamente.
+
+
+-2.4 HTML DINÁMICO
+Cualquier archivo HTML es válido para el lenguaje Astro. ¡Pero Astro nos permite hacer mucho más que solo HTML!
+
+Vamos a definir variables dentro de nuestro archivos .astro. Empezamos en cafes.astro.
+En la parte superior, dentro de las líneas 
+---
+
+---
+Escribimos:
+****
+const pageTitle = "Cafés del mundo";
+****
+
+y sustituimos dentro del head el contenido del title, y dentro del body el contenido del h1, por la nueva constante {pageTitle}.
+Ahora la página se verá exactamente igual que antes, pero en la pestaña del navegador, aparece el valor de pageTitle. En lugar de escribir directamente dentro de las etiquetas HTML, hemos declarado y usado una variable en dos partes del código.
+Ahora hacemos lo mismo con las páginas index.astro y acerca.astro
+Para usar las variables dentro del HTML; encerramos el nombre de la variable en { } siempre.
+
+
+-2.5 USANDO (MÁS) JAVASCRIPT EN ASTRO
+Agregamos esto a la sección superior, frontmatter, del archivo index.astro:
+****
+const infoCafe = {
+  nombreCientifico: "Coffea",
+  origen: "Etiopía",
+  metodosDePreparacion: ["V60", "Aeropress", "Chemex", "Espresso", "French Press"],
+};
+
+const tuestes = ["ligero", "medio", "medio-oscuro", "oscuro"];
+
+****
+
+Y después agregamos esto debajo del h1, siempre dentro del body:
+****
+
+    <h2>Información del Café</h2>
+    <p>Nombre Científico: {infoCafe.nombreCientifico}</p>
+    <p>Origen: {infoCafe.origen}</p>
+    <p>Métodos de Preparación:</p>
+    <ul>
+      {infoCafe.metodosDePreparacion.map((metodo) => <li>{metodo}</li>)}
+    </ul>
+
+    <h2>Tuestes</h2>
+    <ul>
+      {tuestes.map((tueste) => <li>{tueste}</li>)}
+    </ul>
+
+****
+
+Y ahora revisamos los cambios en el navegador, y vemos como se muestra toda la información. Siempre que usemos { } dentro del HTML de un archivo .astro, podemos usar JavaScript.
+
+
+-2.6 RENDERIZADO CONDICIONAL
+Como estamos usando JavaScript en nuestro archivo .astro, podemos decidir que mostrar en el navegador de manera condicional usando variables.
+Añadimos esto al final del frontmatter del archivo index.astro:
+****
+
+const tomoCafe = true;
+const azucar = false;
+const tazas = 4;
+
+****
+
+y antes de cerrar el body, agregamos esto:
+****
+{tomoCafe && <p>Tomo café</p>}
+
+    {azucar ? <p>con azúcar</p> : <p>sin azúcar</p>}
+
+    {
+      tomoCafe && tazas >= 3 ? (
+        <p>más de 3 tazas al día</p>
+      ) : tomoCafe ? (
+        <p>menos de 3 tazas al día</p>
+      ) : null
+    }
+
+****
+
+Ahora, según los valores que tengan estas variables, se va a renderizar o no cierto contenido.
+
+Esta sintaxis es muy parecida a JSX, es decir, a como se escribe código en React.
+Antes de seguir, metemos los elementos anchor del archivo cafes.astro de una lista no ordenada (ul) con sus respectivos li.
+****
+  <ul>
+      <li><a href="/posts/post-1">Café Tarrazú</a></li>
+      <li><a href="/posts/post-2">Café Yirgacheffe</a></li>
+      <li><a href="/posts/post-3">Café Geisha</a></li>
+  </ul>
+
+****
+
+
+-2.7 ESTILOS 
+Otra de las particularidades de Astro, es que permite usar la etiqueta <style></style> dentro del head para agregar estilos a una página individual. Agregamos esto a index.astro:
+****
+    <style>
+      h1 {
+        color: purple;
+        font-size: 4rem;
+      }
+
+     .metodo {
+        list-style: square;
+        color: green;
+      }
+    </style>
+
+***
+
+y añadimos la clase .metodo a los elementos de lista:
+****
+{
+        infoCafe.metodosDePreparacion.map((metodo) => (
+          <li class="metodo">{metodo}</li>
+        ))
+      }
+
+****
+
+Podemos notar que estos estilos se aplican solo a este archivo, lo demás siguen iguales. VER LAS OTRAS PÁGINAS.
+
+
+-2.8 VARIABLES CSS
+Otra de las genialidades de Astro, es que nos permite usar valores de nuestro frontmatter, en la sección de estilos CSS del mismo archivo.
+Agregamos la siguiente variable al frontmatter de index.astro:
+****
+const colorCafe = "burlywood"
+
+****
+
+Después vamos a la etiqueta styles y agregamos el atributo:
+define:vars={{}}  → dentro de las llaves, escribimos nuestras variables a usar.
+La etiqueta styles quedaría así:
+****
+ <style define:vars={{ colorCafe }}>
+      h1 {
+        color: pink;
+        font-size: 4rem;
+      }
+
+      h2 {
+        color: var(--colorCafe);
+      }
+
+      .metodo {
+        list-style: square;
+        color: greenyellow;
+      }
+    </style>
+
+****
+
+Ahora vemos que ambos h2 tomaron el color de la variable CSS a la que le dimos valor desde el frontmatter.
+
+
+-2.9 ESTILOS GLOBALES
+Así como se pueden aplicar estilos para cada página individual, también se pueden aplicar etilos globales para todo el sitio web, y así tener una UI más cohesiva.
+Primero creamos, dentro de src, una nueva carpeta llamada styles (o estilos). Dentro de esta nueva carpeta, creamos el archivo global.css, y añadimos lo siguiente:
+****
+html {
+  background-color: rgb(20, 20, 20);
+  color: whitesmoke;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 80ch;
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 1rem 0;
+  font-size: 2.5rem;
+}
+
+****
+
+Para usar estos estilos, importamos el archivo. En index.astro, añadimos en el frontmatter:
+****
+import '../styles/global.css';
+****
+
+Y ahora podemos ver los cambios en esta página. Para aplicar los estilos a las otras páginas, hacemos lo mismo: agregamos: import '../styles/global.css';
+Al frontmatter de los demás archivos.
+
+
+PARTE 3
+-3.1 COMPONENTES ASTRO
+¿Qué es un componente? Es una unidad reutilizable e independiente de código que encapsula una parte de la interfaz de usuario y su lógica.
+En este proyecto tenemos algo que se repite en cada página: los enlaces de navegación. Vamos a convertir esto en un componente de navegación y así poder reutilizarlo sin repetir código.
+Creamos una nueva carpeta en src, llamada components. Los archivos .astro dentro de esta carpeta, NO SE CONVERTIRÁN EN PÁGINAS.
+Dentro de components/ creamos el archivo Navegacion.astro y escribimos:
+****
+---
+// si no se va a escribir nada en el frontmatter, se puede omitir. Después se puede agregar de ser necesario..
+---
+    <a href="/">Home</a>
+    <a href="/acerca">Acerca</a>
+    <a href="/cafes">Cafés</a>
+
+****
+
+Ahora importamos el nuevo componente a index.astro, y cambios los elementos <a>, por el nuevo componente. Ahora hacemos el mismo cambio en las demás páginas.
+
+Ahora vamos a crear otro componente para tener las cosas más claras. Haremos un footer con los enlaces a redes sociales. Este componente usará algo llamado Props, que viene siendo Propiedades, y es una forma de pasarle datos a un componente.
+
+Creamos dentro de components/ un archivo llamado Footer.astro, y escribimos esto:
+****
+---
+const platform = "github";
+const username = "withastro";
+---
+
+<footer>
+  <p>
+    Encuéntranos en redes sociales <a
+      href={`https://www.${platform}.com/${username}`}>{platform}</a
+    >!
+  </p>
+</footer>
+
+****
+
+Ahora importamos el componente Footer a cada página, y lo añadimos justo antes de cerrar el body. Verificamos que el footer es visible en cada página y seguimos.
+
+
+-3.2 COMPONENTES CON PROPS
+Vamos a crear un componente de Red Social (Social Media). Este componente es el que usará las props. Creamos dentro de components/ un archivo llamdo Social.astro y escribimos:
+****
+---
+const { platform, username } = Astro.props;  // esta línea es la que nos da acceso a las props en Astro
+---
+
+<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+****
+
+En este caso el componente nos permite pasarle diferentes props para diferentes redes sociales.
+Para usar este componente, vamos a importarlo a Footer.astro. Si, un componente dentro de otro componente 😁 Dentro de Footer.astro eliminamos las constantes y cambios el elemento <p> por 3 componentes Social.astro, y tendríamos algo así:
+****
+---
+import Social from './Social.astro';
+
+---
+
+<footer>
+  <Social platform="twitter" username="astrodotbuild" />
+  <Social platform="github" username="withastro" />
+  <Social platform="youtube" username="astrodotbuild" />
+</footer>
+
+****
+
+Ahora revisamos en el navegador, y vemos que el footer ha cambiado. Ahora se muestran enlaces a 3 redes sociales. Vamos a darle algo de estilo al componente Social.astro. Agregamos la etiqueta style, y dentro escribimos:
+****
+<style>
+  a {
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: #4c1d95;
+    text-decoration: none;
+  }
+</style>
+
+****
+
+Y también le damos algo de estilo al Footer, agregamos al archivo Footer.astro:
+****
+<style>
+  footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
+
+****
+
+Ahora vamos a crear un componente Header.astro, que encierre nuestro menú de navegación. Escribimos dentro:
+****
+---
+import Navegacion from "./Navegacion.astro";
+---
+
+<header>
+  <nav>
+    <Navegacion />
+  </nav>
+</header>
+****
+Y en las demás páginas/archivos, cambiamos el componente Navegacion.astro por Header.astro
+
+Ahora vamos a añadir un poco de estilos para responsividad (responsive design).  Dentro de Navegacion.astro, encerramos lo elementos <a> con un div con la clase "nav-links". Y después en global.css, añadimos esto al final:
+****
+/* nav styles */
+
+.nav-links {
+  width: 100%;
+  top: 5rem;
+  left: 48px;
+  background-color: #ff9776;
+  display: none;
+  margin: 0;
+}
+
+.nav-links a {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  background-color: #ff9776;
+}
+
+.expanded {
+  display: unset;
+}
+
+@media screen and (min-width: 636px) {
+  .nav-links {
+    margin-left: 5em;
+    display: block;
+    position: static;
+    width: auto;
+    background: none;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding: 15px 20px;
+  }
+
+}
+
+****
+
+Ahora en el navegador, si hacemos más pequeña la pantalla, notamos que el header desaparece según el tamaño. También podemos ver que hay un efecto al hacer hover sobre los enlaces cuando la pantalla es más grande.
+
+
+-3.3 ENVIANDO CÓDIGO/JAVASCRIPT AL NAVEGADOR
+Vamos a añadir un menú tipo hamburguesa para pantallas pequeñas, lo que va a requerir un poco de JavaScript.
+Dentro de components/ creamos el archivo Hamburguesa.astro, y escribimos esto dentro:
+****
+---
+
+---
+<div class="hamburger">
+  <span class="line"></span>
+  <span class="line"></span>
+  <span class="line"></span>
+</div>
+
+****
+
+Y ahora añadimos este componente dentro de Header.astro, lo importamos y colocamos justo encima del componente Navegacion.astro, así:
+****
+---
+import Hamburger from './Hamburger.astro';
+import Navigation from './Navigation.astro';
+---
+<header>
+  <nav>
+    <Hamburger />
+    <Navigation />
+  </nav>
+</header>
+
+****
+
+Agregamos los siguientes estilos a global.css, sobre los estilos de -nav-links:
+****
+.hamburger {
+  padding-right: 20px;
+  cursor: pointer;
+}
+
+.hamburger .line {
+  display: block;
+  width: 40px;
+  height: 5px;
+  margin-bottom: 10px;
+  background-color: #ff9776;
+}
+
+****
+
+y estos justo al final pero dentro, del media query:
+****
+  .hamburger {
+    display: none;
+  }
+
+****
+
+Con estos estilos vemos como la apariencia del Header cambia según el tamaño de la pantalla.
+
+Y ahora si, vamos a escribir el JavaScript que le dará interactividad al componente Hamburguesa.astro. En index.astro, debajo del Footer, escribimos:
+****
+  <script>
+    document.querySelector('.hamburger')?.addEventListener('click', () => {
+      document.querySelector('.nav-links')?.classList.toggle('expanded');
+    });
+  </script>
+
+****
+
+Al añadir ese poquito de JS, ya hemos hecho interactivo el menú Hamburguesa, aunque solo en index.astro. Vamos a cambiar esto pronto, pero primero vamos separar el JS a un archivo aparte. Creamos dentro de src/ una carpeta llamada scripts/ que va a contener todo nuestro código JS. Dentro de scripts/ creamos un archivo llamado menu.js, y pasamos el JS de index.astro, a ese nuevo archivo. Y después importamos este archivo dentro de la etiqueta script, dentro de index.astro. Verificamos que esté funcionando bien en index.astro, y después agregamos la etiqueta <script> con esta importación a las demás páginas. Y vemos que ahora funciona en todas las páginas de nuestro sitio web.
+Algo importante de entender en esta parte es que, el código JS que se escribe en el frontmatter, se ejecuta en el servidor, y se usa para crear los HTML estáticos, pero el JS escrito en la etiqueta script, se ejecuta en el navegador, lo que permite la interacción en tiempo real con la persona usuaria.
+
+
+PARTE 4
+- 4.1 LAYOUTS
+Se podría decir que un layout es una estructura reutilizable que define la distribución y el diseño base de una página web. Se utiliza para mantener una estructura/diseño consistente entre páginas.
+
+Vamos a crear un primer layout.
+Creamos una carpeta en src/ llamada layouts, y dentro de esta creamos BaseLayout.astro, y comenzamos este archivo copiando todo el contenido de index.astro.
+
+Ahora remplazamos el código en index.astro por esto:
+****
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Café & Orígenes";
+---
+
+<BaseLayout>
+  <h2>☕ ☕ ☕ ☕ ☕ ☕</h2>
+</BaseLayout>
+
+****
+
+Si revisamos el navegador, vemos que la página se ve igual que antes, pero no se ve por ningún lado las tazas de café de ese h2.
+Ahora regresamos BaseLayout.astro y justo sobre el Footer agregamos:
+****
+<slot />
+
+****
+
+Este elemento de Astro nos permite inyectar contenido "hijo", dentro de un componente padre, agregándolo entre las etiquetas del componente padre, siempre que sea un componente .astro
+
+También podemos pasar valores a estos layouts que sean específicos para cada página, mediante props.
+
+Para ver esto, vamos a agregar: **** pageTitle={pageTitle} **** como prop al componente BaseLayout dentro de index.astro, y se vería así:
+****
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "Home Page";
+
+---
+<BaseLayout pageTitle={pageTitle}>
+  <h2>My awesome blog subtitle</h2>
+</BaseLayout>
+
+****
+
+y en el frontmatter de BaseLayout.astro, cambiamos const pageTitle = "Café & Orígenes" por:**** const { pageTitle } = Astro.props; ****
+El frontmatter de BaseLayout.astro debería verse así:
+****
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const { pageTitle } = Astro.props;
+
+---
+
+****
+
+Si revisamos en el navegador, vemos que el título se muestra igual, pero ahora lo hacemos de manera dinámica.
+
+Ahora vamos a observar los elementos comunes en nuestras páginas, para crear un layout que funcione para todas, aprovechando que podemos personalizarlas con los props.
+
+Volvemos al código que teníamos en index.astro (usamos ctrl+z) y modificamos BaseLayout.astro con este código:
+****
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const { pageTitle } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+
+    <style is:global>
+      h1 {
+        color: pink;
+        font-size: 4rem;
+      }
+    </style>
+
+  </head>
+</html>
+
+<body>
+  <Header />
+  <h1>{pageTitle}</h1>
+  <slot />
+  <Footer />
+  <script>
+    import "../scripts/menu.js";
+  </script>
+</body>
+
+****
+
+Como los h1 ahora son creados por este componente, podemos agregar el atributo is:global a la etiqueta styles, para que así se aplique el estilo a cada página que usa este layout.
+
+Y empezamos a refactorizar las otras páginas para poder usar el BaseLayout. Así quedarían:
+index.astro:
+****
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Café & Orígenes";
+
+const infoCafe = {
+  nombreCientifico: "Coffea",
+  origen: "Etiopía",
+  metodosDePreparacion: [
+    "V60",
+    "Aeropress",
+    "Chemex",
+    "Espresso",
+    "French Press",
+  ],
+};
+
+const tuestes = ["ligero", "medio", "medio-oscuro", "oscuro"];
+
+const tomoCafe = true;
+const azucar = false;
+const tazas = 2;
+
+const colorCafe = "burlywood";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <body>
+    <style define:vars={{ colorCafe }}>
+      h2 {
+        color: var(--colorCafe);
+      }
+
+      .metodo {
+        list-style: square;
+        color: greenyellow;
+      }
+    </style>
+
+    <h2>Información del Café</h2>
+    <p>Nombre Científico: {infoCafe.nombreCientifico}</p>
+    <p>Origen: {infoCafe.origen}</p>
+    <p>Métodos de Preparación:</p>
+    <ul>
+      {
+        infoCafe.metodosDePreparacion.map((metodo) => (
+          <li class="metodo">{metodo}</li>
+        ))
+      }
+    </ul>
+
+    <h2>Tuestes</h2>
+    <ul>
+      {tuestes.map((tueste) => <li>{tueste}</li>)}
+    </ul>
+
+    {tomoCafe && <p>Tomo café</p>}
+    {azucar ? <p>con azúcar</p> : <p>sin azúcar</p>}
+    {
+      tomoCafe && tazas >= 3 ? (
+        <p>más de 3 tazas al día</p>
+      ) : tomoCafe ? (
+        <p>menos de 3 tazas al día</p>
+      ) : null
+    }
+  </body>
+</BaseLayout>
+
+****
+
+Para no perder los estilos específicos que usamos en este componente, movemos la etiqueta style y su contenido al body.
+
+acerca.astro:
+****
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Acerca de Café & Orígenes";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    "Café & Orígenes" es un blog dedicado a explorar el fascinante mundo del
+    café, desde su cultivo hasta la taza. Aquí encontrarás artículos sobre
+    métodos de preparación, variedades de granos, técnicas de tueste y las
+    mejores formas de disfrutar cada sorbo. Además, nos sumergimos en la
+    historia y cultura detrás del café, con reportajes sobre productores
+    locales, catas y nuevas tendencias en el mundo cafetero. Ya seas un barista
+    experimentado o un aficionado en busca del espresso perfecto, este espacio
+    es para ti.
+  </p>
+</BaseLayout>
+
+****
+
+Este componente es un muy buen ejemplo de lo útil que son los layouts, redujimos mucho la cantidad de código y la página se sigue viendo igual.
+
+
+cafes.astro
+****
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Cafés del mundo";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>En este lugar puedes conocer sobre los cafés más deliciosos del mundo.</p>
+  <ul>
+    <li><a href="/posts/post-1">Café Tarrazú</a></li>
+    <li><a href="/posts/post-2">Café Yirgacheffe</a></li>
+    <li><a href="/posts/post-3">Café Geisha</a></li>
+  </ul>
+</BaseLayout>
+
+****
+
+Y con este archivo, podemos terminar de confirmar que teníamos bastante código repetido en las páginas.
+
+
+- 4.2 LAYOUTS PARA ARCHIVOS MARKDOWN
+Ya que tenemos un layout para las páginas, vamos a crear uno para nuestros post sobre diferentes cafés.
+Dentro de la carpeta layouts/ creamos un archivo llamado MarkdownPostLayout.astro y agregamos este código:
+****
+---
+const { frontmatter } = Astro.props;
+
+---
+
+<meta charset="utf-8" />
+<title>{frontmatter.title} - {frontmatter.subtitle}</title>
+
+<h1>{frontmatter.title}</h1>
+<p>Publicado el {new Date(frontmatter.pubDate).toLocaleDateString('es-ES')}</p>
+<p>Escrito por {frontmatter.author}</p>
+<h2>{frontmatter.subtitle}</h2>
+<slot />
+<img
+  src={`/${frontmatter.image.url}`}
+  width="300"
+  alt={frontmatter.image.alt}
+/>
+
+****
+
+Y modificamos el frontmatter de post-1.md con este código:
+****
+---
+layout: ../../layouts/MarkdownPostLayout.astro #nueva línea
+title: "Café Tarrazú" #modificamos esta línea
+subtitle: "La Joya de Costa Rica" #agregamos este atributo
+pubDate: 2025-02-15
+description: "Post sobre Café Tarrazú de Costa Rica"
+author: "Astro Learner"
+image:
+  url: 'public/imagenes/cafe1.jpg'
+  alt: "Una taza de café negro, originario de Costa Rica"
+tags: ["café", "costa rica", "astro"]
+---
+****
+
+Si vemos ahora el post en el navegador, vemos que tiene una apariencia diferente a la de antes, más organizada. Ahora hacemos lo mismo con los otros posts, refactorizando para eliminar el código innecesario.
+Como pudimos ver, se pueden agregar data en el frontmatter para usar dentro del layout, y así poder personalizarlo.
+Cada archivo quedaría así:
+
+post-1.md:
+****
+---
+layout: ../../layouts/MarkdownPostLayout.astro #nueva línea
+title: "Café Tarrazú" #modificamos esta línea
+subtitle: "La Joya de Costa Rica" #agregamos este atributo
+pubDate: 2025-02-15
+description: "Post sobre Café Tarrazú de Costa Rica"
+author: "Astro Learner"
+image:
+  url: 'imagenes/cafe1.jpg'
+  alt: "Una taza de café negro, originario de Costa Rica"
+tags: ["café", "costa rica", "astro"]
+---
+
+Un café de altura cultivado en las montañas de Tarrazú, Costa Rica, conocido por su acidez brillante y notas cítricas. Su perfil de sabor combina matices de chocolate oscuro y caramelo, con un cuerpo balanceado y un final limpio. Perfecto para quienes buscan una taza compleja y aromática. 
+
+Ideal en métodos de filtrado como:
+- V60.
+- Chemex.
+
+****
+
+
+post-2.md:
+****
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "Café Yirgacheffe"
+subtitle: "La Esencia de Etiopía"
+pubDate: 2025-02-15
+description: "Post sobre Café Yirgacheffe de Etiopía"
+author: "Astro Learner"
+image:
+  url: 'imagenes/cafe2.jpg'
+  alt: "Una taza de café, originario de Etiopía"
+tags: ["café", "etiopía", "astro"]
+---
+
+Originario de la cuna del café, Etiopía, el Yirgacheffe es un café afrutado y floral, con notas de jazmín, frutos rojos y miel. Su acidez vibrante y cuerpo ligero lo hacen una opción excepcional para quienes disfrutan cafés con perfiles exóticos y dulces. 
+
+Destaca en preparaciones de filtrado como:
+- Aeropress.
+- Kalita Wave.
+
+****
+
+
+post-3.md:
+****
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "Café Geisha"
+subtitle: "Elegancia y Complejidad"
+pubDate: 2025-02-15
+description: "Post sobre Café Geisha de Panamá"
+author: "Astro Learner"
+image:
+  url: "imagenes/cafe3.jpg"
+  alt: "Una taza de café, originario de Panamá"
+tags: ["café", "panamá", "astro"]
+---
+
+Considerado uno de los cafés más exclusivos del mundo, el Geisha se cultiva en las montañas de Panamá y otras regiones de América Latina. Su perfil es floral y afrutado, con notas de jazmín, bergamota y miel, acompañado de una acidez vibrante y un cuerpo sedoso. Su complejidad y delicadeza lo hacen ideal para métodos de filtrado como _V60_ o **Chemex**, donde se pueden apreciar todos sus matices.
+
+****
+
+Ahora podemos ver las imágenes de cada post, usando la data del frontmatter, y aprovechando la estructura del layout.
+
+
+- 4. 3 COMBINANDO LAYOUTS
+Ahora que tenemos un layout específico para nuestros posts de café, notamos que tienen una apariencia diferente al resto de las páginas, por lo que ahora vamos a combinar layouts para darle una apariencia más concisa.
+
+Importamos BaseLayout.astro dentro de MarkdownPostLayout.astro, y encerramos el contenido dentro de BaseLayout, por lo que este archivo quedaría así:
+****
+---
+const { frontmatter } = Astro.props;
+
+import BaseLayout from "./BaseLayout.astro";
+
+---
+
+<title>{frontmatter.title} - {frontmatter.subtitle}</title>
+
+<BaseLayout pageTitle={frontmatter.title}>
+  <p>
+    Publicado el {new Date(frontmatter.pubDate).toLocaleDateString("es-ES")}
+  </p>
+  <p>Escrito por {frontmatter.author}</p>
+  <h2>{frontmatter.subtitle}</h2>
+  <slot />
+  <img
+    src={`/${frontmatter.image.url}`}
+    width="300"
+    alt={frontmatter.image.alt}
+  />
+</BaseLayout>
+
+****
+
+Quitamos la etiqueta meta y el h1 que teníamos, pues el BaseLayout ya se encarga de eso. Dejamos la etiqueta title para mantener el formato que queremos lograr.
+
+Si ahora revisamos en el navegador, confirmamos que en las páginas de nuestros posts, ahora se incluye el header, el footer y demás elementos que también se presentan en el resto de páginas.
+
+
+PARTE 5
+- 5.1 ASTRO API (INTRODUCCIÓN)
+Vamos a crear un archivo de entradas de los posts.
+Agregamos esta línea de código al frontmatter de cafes.astro:
+****
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+****
+
+import.meta.glob() va a retornarnos un array de objetos, un objeto por cada post ubicado dentro de nuestra carpeta posts.
+
+Ahora vamos a refactorizar el código para renderizar la lista de posts de manera dinámica, usando la nueva constante allPosts y el método map. El código en cafes.astro quedaría así:
+****
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true })
+);
+
+const pageTitle = "Cafés del mundo";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>En este lugar puedes conocer sobre los cafés más deliciosos del mundo.</p>
+  <ul>
+    {
+      allPosts.map((post: any) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+****
+
+En el navegador notamos que todo se ve igual, pero ahora estamos renderizando la lista de manera dinámica. Ahora vamos a crear otro post para ver por qué nos ayuda mucho usar esta técnica, en lugar de escribir directamente la lista de posts.
+En src/pages/posts creamos un archivo post-4.md, con este contenido:
+****
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "Café Huila"
+subtitle: "El Tesoro de Colombia"
+pubDate: 2025-02-15
+description: "Post sobre Café Huila de Colombia"
+author: "Astro Learner"
+image:
+  url: "imagenes/cafe4.jpg"
+  alt: "Una taza de café, originario de Colombia"
+tags: ["café", "colombia", "astro"]
+---
+
+Cultivado en las fértiles montañas del departamento de Huila, Colombia, este café se destaca por su acidez vibrante y dulzura natural. Su perfil de sabor combina notas de frutos rojos, panela y un sutil toque floral, con un cuerpo sedoso y un final prolongado. Perfecto para quienes buscan una experiencia aromática y afrutada en cada taza.
+
+Ideal en métodos de filtrado como:
+
+- Aeropress.
+- Prensa francesa.
+
+****
+
+Y ahora, sin agregar nada más, vemos en el navegador que tenemos un cuarto café en la lista, con los mismo layouts que los demás.
+
+
+- 5.2 ENRUTADO DINÁMICO
+En Astro podemos crear un conjunto completo de página de forma dinámica, con archivos .astro, usando la función getStaticPats().
+
+en src/pages creamos una nueva carpeta llamada tags/ y dentro de esta creamos un archivo llamado [tag].astro, con el siguiente código:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  return [
+    { params: { tag: "astro" } },
+    { params: { tag: "café" } },
+    { params: { tag: "colombia" } },
+    { params: { tag: "etiopía" } },
+    { params: { tag: "costa rica" } },
+  ];
+}
+
+const { tag } = Astro.params;
+
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts con etiqueta {tag}</p>
+</BaseLayout>
+
+****
+
+La función getStaticPaths retorna un array con rutas para las páginas, y todas las páginas de estas rutas, usarán el mismo layout que se defina en este archivo.
+
+Ahora si escribimos en la url del navegador: http://localhost:4321/tags/colombia
+
+Podemos ver que tenemos una página funcional (no está rota), y podemos probar con las demás etiquetas para confirmar lo mismo.
+
+Y ahora vamos a agregar código para que la data de cada post esté accesible dentro del renderizado de cada página. [tag].astro se vería así:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true })
+  ); // nueva línea
+  return [
+    { params: { tag: "astro" }, props: {posts: allPosts } },
+    { params: { tag: "café" }, props: {posts: allPosts } },
+    { params: { tag: "colombia" }, props: {posts: allPosts } },
+    { params: { tag: "etiopía" }, props: {posts: allPosts } },
+    { params: { tag: "costa rica" }, props: {posts: allPosts } },
+  ];
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props; // nueva línea
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts con etiqueta {tag}</p>
+</BaseLayout>
+
+****
+
+Y ahora vamos a filtrar los posts para mostrar en cada página, los que corresponden a cada etiqueta.
+Agregamos al final del frontmatter de [tag].astro lo siguiente:
+****
+const filteredPosts = posts.filter((post: any) => post.frontmatter.tags?.includes(tag));
+
+****
+
+Y mostramos estos posts filtrados agregando esto a [tag].astro:
+****
+ <ul>
+    {filteredPosts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+  </ul>
+
+****
+
+[tag].astro quedaría así:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true })
+  ); // nueva línea
+  return [
+    { params: { tag: "astro" }, props: { posts: allPosts } },
+    { params: { tag: "café" }, props: { posts: allPosts } },
+    { params: { tag: "colombia" }, props: { posts: allPosts } },
+    { params: { tag: "etiopía" }, props: { posts: allPosts } },
+    { params: { tag: "costa rica" }, props: { posts: allPosts } },
+  ];
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props; // nueva línea
+const filteredPosts = posts.filter((post: any) =>
+  post.frontmatter.tags?.includes(tag)
+); // otra nueva línea
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts con etiqueta {tag}</p>
+  <ul>
+    {
+      filteredPosts.map((post: any) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+****
+
+Ahora si revisamos el navegador, vemos que cada página de etiqueta, muestras los posts que tienen esa etiqueta ( ver: http://localhost:4321/tags/colombia   ,  http://localhost:4321/tags/caf%C3%A9 )
+
+Con el código actual, si agregamos una nueva etiqueta a los posts, o creamos un post con una nueva etiqueta, tendríamos que agregar esta etiqueta de manera directa a nuestro archivo. Vamos a cambiar esto. Vamos a refactorizar [tag].astro.
+Añadimos esta línea dentro de la función getStaticPaths, debajo de allPosts:
+****
+  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+****
+
+Esa línea de código, muy en resumen, lo que hace es juntar las etiquetas de todos los posts en un solo array, crea un Set para cada etiqueta para no tener valores repetidos, y retorna un array plano/unidimensional que podemos usar para mostrar los tags en nuestra página.
+
+Seguimos refactorizando. Usamos esta nueva constante para remplazar el array de objetos con parámetros y props que escribimos de manera directa, de esta manera:
+****
+// eliminamos:
+  return [
+    { params: { tag: "astro" }, props: { posts: allPosts } },
+    { params: { tag: "café" }, props: { posts: allPosts } },
+    { params: { tag: "colombia" }, props: { posts: allPosts } },
+    { params: { tag: "etiopía" }, props: { posts: allPosts } },
+    { params: { tag: "costa rica" }, props: { posts: allPosts } },
+  ];
+
+// y agregamos:
+return uniqueTags.map((tag) => {
+  const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+  return {
+    params: { tag },
+    props: { posts: filteredPosts },
+  };
+});
+
+*****
+
+El código completo de [tag].astro hasta el momento quedaría así:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true })
+  );
+
+  const uniqueTags = [
+    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+  ];
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.frontmatter.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const filteredPosts = posts.filter((post: any) =>
+  post.frontmatter.tags?.includes(tag)
+);
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts con etiqueta {tag}</p>
+  <ul>
+    {
+      filteredPosts.map((post: any) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+****
+
+Algo muy importante a recordar es que getStaticPaths siempre debe retornar una lista de objetos que contenga parámetros(params), y opcionalmente props, que sería data que queremos usar en estas páginas.
+
+Para terminar esta parte, eliminamos la constante filteredPosts, y modificamos el contenido de la etiqueta ul, quedando el código total así:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true })
+  );
+
+  const uniqueTags = [
+    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+  ];
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.frontmatter.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts con etiqueta {tag}</p>
+  <ul>
+    {
+      posts.map((post: any) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+****
+
+- 5.3 CREANDO UNA PÁGINA DE ÍNDICE DE TAGS
+Como parte del sistema de enrutado de Atro, podemos crear varios archivos index.astro, para renderizar diferentes páginas/contenido. Esto lo vamos a ver aplicado de la siguiente forma.
+Dentro de src/pages/tags creamos el archivo index.astro. Este se encargará de mostrar el contenido para la página de índices de tags.
+Dentro de este archivo escribimos:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const pageTitle = "Tag Index";
+
+---
+
+<BaseLayout pageTitle={pageTitle} />
+
+</BaseLayout>
+
+****
+
+Si ahora escribimos en la URL del navegador: http://localhost:4321/tags
+Podemos ver una página lista para ser llenada de contenido.
+
+Ahora vamos a crear una lista de enlaces para mostrar todos los tags que hay en los posts de nuestra página.
+El código se vería así en index.astro, dentro de src/pages/tags:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const allPosts = Object.values(
+  import.meta.glob("../posts/*.md", { eager: true })
+);
+
+const tags = [
+  ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+];
+
+const pageTitle = "Tag Index";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div>
+    {
+      tags.map((tag) => (
+        <p>
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </p>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+****
+
+Ahora añadimos un poco de estilo para mejorar la presentación de la lista.
+Agregamos estas clases:
+****
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const allPosts = Object.values(
+  import.meta.glob("../posts/*.md", { eager: true })
+);
+const tags = [
+  ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+];
+const pageTitle = "Tag Index";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="tags"> //se agrega clase tags
+    {
+      tags.map((tag) => (
+        <p class="tag"> // se agrega clase tag
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </p>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+****
+
+Y añadimos una etiqueta style al archivo con el siguiente contenido:
+****
+<style>
+  a {
+    color: #00539F;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: .5em;
+    padding: .5em 1em;
+    font-size: 1.15em;
+    background-color: #F8FCFD;
+  }
+</style>
+
+****
+
+Y ahora si volvemos al navegador, vemos una mejora en la presentación, en la IU.
+Lo siguiente es añadir esta nueva página a nuestro menú de navegación.
+Simplemente añadimos esta línea al componente Navegacion.astro:
+****
+<a href="/tags/">Tags</a>
+
+****
+
+
+PARTE 6
+- 6.1 Islas Astro 🚀
+Ahora que ya tenemos un sitio que se ve bien y funciona, es momento de agregar algo de interactividad. Vamos a crear nuestra primer isla Astro.
+
+En la terminal de VS Code ejecutamos el siguiente comando:
+****
+npx astro add React
+
+****
+
+Esto nos añadirá un paquete a nuestro proyecto de manera muy sencilla. Solo seguimos las instrucciones de la terminal, y queda listo. Astro, detrás del telón, se encarga de la configuración.
+Ahora si, vamos a crear un componente de bienvenida.
+En src/components creamos Bienvenida.jsx, y le agregamos el siguiente código:
+****
+import { useState } from 'react';
+
+export default function Bienvenida({mensajes}) {
+
+  const mensajeRandom = () => mensajes[(Math.floor(Math.random() * mensajes.length))];
+
+  const [bienvenida, setBienvenida] = useState(mensajes[0]);
+
+  return (
+    <div>
+      <h3>{bienvenida}, gracias por visitar nuestra página</h3>
+      <button onClick={() => setBienvenida(mensajeRandom())}>
+        ¡Nuevo saludo!
+      </button>
+    </div>
+  );
+}
+
+****
+
+Y en src/pages/index.astro (el index principal) importamos el componente Bienvenida.jsx y lo colocamos justo debajo de la etiqueta styles.
+El código se vería así:
+****
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import Bienvenida from "../components/Bienvenida";
+
+const pageTitle = "Café & Orígenes";
+
+const infoCafe = {
+  nombreCientifico: "Coffea",
+  origen: "Etiopía",
+  metodosDePreparacion: [
+    "V60",
+    "Aeropress",
+    "Chemex",
+    "Espresso",
+    "French Press",
+  ],
+};
+
+const tuestes = ["ligero", "medio", "medio-oscuro", "oscuro"];
+
+const tomoCafe = true;
+
+const azucar = false;
+
+const tazas = 2;
+
+const colorCafe = "burlywood";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <body>
+    <style define:vars={{ colorCafe }}>
+      h2 {
+        color: var(--colorCafe);
+      }
+
+      .metodo {
+        list-style: square;
+        color: greenyellow;
+      }
+    </style>
+
+    <Bienvenida mensajes={["Hello", "Hola", "Bonjour", "Hallo", "Konichiwa"]} />
+
+    <h2>Información del Café</h2>
+    <p>Nombre Científico: {infoCafe.nombreCientifico}</p>
+    <p>Origen: {infoCafe.origen}</p>
+    <p>Métodos de Preparación:</p>
+    <ul>
+      {
+        infoCafe.metodosDePreparacion.map((metodo) => (
+          <li class="metodo">{metodo}</li>
+        ))
+      }
+    </ul>
+
+    <h2>Tuestes</h2>
+    <ul>
+      {tuestes.map((tueste) => <li>{tueste}</li>)}
+    </ul>
+
+    {tomoCafe && <p>Tomo café</p>}
+    {azucar ? <p>con azúcar</p> : <p>sin azúcar</p>}
+    {
+      tomoCafe && tazas >= 3 ? (
+        <p>más de 3 tazas al día</p>
+      ) : tomoCafe ? (
+        <p>menos de 3 tazas al día</p>
+      ) : null
+    }
+  </body>
+</BaseLayout>
+
+****
+Si ahora vamos al navegador, vemos que tenemos el mensaje de bienvenida, pero el notamos que el botón no funciona, no hace nada.
+
+Si añadimos otro componente Bienvenida, justo debajo del anterior, pero con el atributo o mejor dicho directiva client:load, vemos que este segundo componente si funciona. El segundo componente funciona bien justamente por esa directiva. Hace que Astro ejecute este código javascript del lado del cliente cuando la página se carga, logrando que sea interactivo. Esto es lo que se conoce como componente hidratado. Ahora, eliminamos el componente que no contiene la directiva y seguimos. Hay otras directivas, pero en este curso rápido e introductorio, no profundizaremos en esto. Y otra cosa increíble de astro, es que nos permite tener en un mismo proyecto, componentes de diferentes frameworks, es decir, en una misma página o proyecto podemos tener componentes de React, Vue, Svelte y Preact.
+
+PARTE 7
+- 7.1 GITHUB Y NETLIFY
+Ahora para terminar el evento, vamos a subir nuestro proyecto a un repositorio en GitHub, para después desplegarlo en Netlify y poder compartirlo con el mundo.
+
+*crear repositorio en GitHub y después desplegarlo en Netlify.
